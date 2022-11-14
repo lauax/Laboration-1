@@ -48,7 +48,17 @@ const monsters = [
         win : (m) => {increaseStats(1,1,0); m.health = 3},
         info : "Det dök upp ett vilt troll",
         winText :"Du har besegrat trollet och belönas med ytterligare stats. +1 liv och +1 attack."
-    }
+    },
+    {
+    name : "Dinosaurier",
+    health : 4,
+    attack : 4,
+    defense : 3,
+    speed : 4,
+    win : (m) => {increaseStats(0,2,0); m.health = 4},
+    info : "Det dök upp en vild dinosaurier",
+    winText :"Du har besegrat dinosaurieren och belönas med ytterligare stats. +2 attack."
+}
 ]
 
 /** This code runs when the page is loaded */
@@ -73,6 +83,11 @@ function initDivs(){
     cDefense = document.getElementById("charater-defense")
     cSpeed = document.getElementById("charater-speed")
 
+    vargImage = document.getElementById("varg")
+    spökeImage = document.getElementById("spöke")
+    riddareImage = document.getElementById("riddare")
+    trollImage = document.getElementById("troll")
+    dinosaurieImage = document.getElementById("dinosaurie")
     textPrompt.style.display = "none"
     buttonPrompt.style.display = "none"
 }
@@ -91,7 +106,7 @@ function updateStats(){
     cDefense.innerHTML = "Försvar: " + character.defense
     cSpeed.innerHTML = "Initiativ: " + character.speed
 }
-
+()=>increaseStats
 function increaseStats(h, a, d){
 // alert("INCREASE " + character.health)
     character.health += h
@@ -100,6 +115,14 @@ function increaseStats(h, a, d){
 // alert("INCREASE " + character.health)
     updateStats()
 }
+function decreaseStats(h, a, d){
+    // alert("DECREASE " - character.health)
+        character.health -= h
+        character.attack -= a
+        character.defense -= d
+    // alert("DECREASE " - character.health)
+        updateStats()
+    }
 
 /** Prompt the user for their name and set the characters name */
 function setName(){
@@ -115,13 +138,20 @@ function choseClass(){
         "Rogue", 
         "Druid", 
         "Paladin", 
-        "Warrior"
+        "Warrior",
+        "Thrall",
+        "Sylvanas",
+        "Al'Akir",
+
     ]
     let fun = [
         () => {setStats(4,5,0,5); startGame()},
         () => {setStats(6,3,1,3); startGame()}, 
         () => {setStats(5,5,1,4); startGame()}, 
-        () => {setStats(8,3,2,2); startGame()} 
+        () => {setStats(6,3,2,2); startGame()},
+        () => {setStats(4,4,4,3); startGame()},
+        () => {setStats(2,6,5,2); startGame()}, 
+        () => {setStats(3,5,3,4); startGame()},
     ]
     populateButtons(classes, fun)
 
@@ -204,15 +234,45 @@ function beat(monster){
     monster.win(monster)
     populateButtons(["Gå vidare"], [() => fightRandom()] )
 }
-
+/*
+function monsterImage(){
+if(monsters[0] == monsters.name){
+    vargImage.style.display = "block";
+}
+if(monsters[1] == monsters.name){
+    spökeImage.style.display = "block";
+}
+if(monsters[2] == monsters.name){
+    riddareImage.style.display = "block";
+}
+if(monsters[3] == monsters.name){
+    trollImage.style.display = "block";
+}
+if(monsters[4] == monsters.name){
+    dinosaurieImage.style.display = "block";
+}
+}
+*/
 function fightRandom(){
     let i = Math.floor(Math.random() * monsters.length);
     fight(monsters[i])
 }
 
+const fly = ["fly", "flyInte"]
 function escape(monster){
-    // TODO
+    const lyckadesFly = Math.floor(Math.random() *fly.length);
+    if(fly[lyckadesFly] == "flyInte"){
+    decreaseStats(4,0,0); 
 }
+    if(character.health <= 0){
+    gameOver()
+}
+   else {
+    setInfo("Du lyckades fly utan att ta extra skada") 
+    }
+
+    fightRandom()
+    }
 
 function getMonsterStats(monster){
     let str = "Liv: " + monster.health + ", "

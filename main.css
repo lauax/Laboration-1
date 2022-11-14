@@ -1,0 +1,32 @@
+#character{
+    position: absolute;
+    bottom: 10rem;
+    left: 8rem;
+    text-align: center;
+    font-size: larger;
+    background-color: red;
+    width: 50vh;
+}
+#question{
+    position: absolute;
+    bottom: 10rem;
+    right: 9rem;
+    text-align: center;
+    font-size: larger;
+    background-color: red;
+    width: 50vh;
+}
+#info{
+    position: absolute;
+    bottom: 12.7rem;
+    right: 9rem;
+    text-align: center;
+    font-size: larger;
+    background-color: red;
+    width: 50vh;
+}
+#monsters{
+    height: 50px;
+    width: 60px;
+    display:none;
+}
