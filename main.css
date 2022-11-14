@@ -1,32 +1,55 @@
-#character{
-    position: absolute;
-    bottom: 10rem;
-    left: 8rem;
-    text-align: center;
-    font-size: larger;
-    background-color: red;
-    width: 50vh;
+#monster-image{
+    width: 30vw;
+    height: 30vw;
+    margin-top : 5vh
 }
-#question{
-    position: absolute;
-    bottom: 10rem;
-    right: 9rem;
-    text-align: center;
-    font-size: larger;
-    background-color: red;
-    width: 50vh;
+
+#character-image{
+    width: 30vw;
+    height: 30vw;
+    margin-top : 5vh
 }
-#info{
-    position: absolute;
-    bottom: 12.7rem;
-    right: 9rem;
+
+body{
+    display : flex;
     text-align: center;
-    font-size: larger;
-    background-color: red;
-    width: 50vh;
+    margin: 0px;
+    height: 100vh;
+    background-color: black;
+    color: white;
 }
-#monsters{
-    height: 50px;
-    width: 60px;
-    display:none;
+
+#right{
+    width : 40vw;
+}
+
+#left{
+    width : 40vw;    
+}
+
+#middle{
+    display: flex;
+    flex-direction: column ;
+    width : 20vw;    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#button-prompt{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#button-prompt button{
+    width: 10vw;
+    height: 6vh;
+    margin-bottom: 1vh;
+}
+
+#character p{
+    margin : none;
 }
