@@ -1,5 +1,9 @@
 
-let buttonPrompt, name, monsterInfo, cHealth, cAttack, cDefense, cSpeed, info, monsterImage, monster, mHealth, mAttack, mDefense, mSpeed
+let buttonPrompt, name, monsterInfo, 
+cHealth, cAttack, cDefense, cSpeed, 
+info, monsterImage, monster, characterImage,
+mHealth, mAttack, mDefense, mSpeed
+ 
 const character = {
     name : null,
     health : 0,
@@ -10,7 +14,7 @@ const character = {
 
 const monsters = [
     {
-        name : "Varg",
+        name : "varg",
         health : 5,
         attack : 4,
         defense : 0,
@@ -20,7 +24,7 @@ const monsters = [
         win : (m) => {increaseStats(2,0,0); m.health = 5}
     },
     {
-        name : "Spöke",
+        name : "spöke",
         health : 3,
         attack : 7,
         defense : 1,
@@ -30,7 +34,7 @@ const monsters = [
         win :(m) => {increaseStats(0,1,0); m.health = 3}
     },
     {
-        name : "Riddare",
+        name : "riddare",
         health : 4,
         attack : 5,
         defense : 2,
@@ -40,7 +44,7 @@ const monsters = [
         winText : "Du har besegrat Riddaren och beslag tar hans rustning. +1 försvar"
     },
     {
-        name : "Troll",
+        name : "troll",
         health : 3,
         attack : 5,
         defense : 2,
@@ -50,7 +54,7 @@ const monsters = [
         winText :"Du har besegrat trollet och belönas med ytterligare stats. +1 liv och +1 attack."
     },
     {
-        name : "Dinosaurier",
+        name : "dinosaurie",
         health : 4,
         attack : 4,
         defense : 3,
@@ -68,6 +72,8 @@ function onBodyLoad(){
 }
 
 function startGame(){
+    characterImage.style.display = "block";
+    monsterImage.style.display = "block";
     fightRandom()
 }
 
@@ -87,7 +93,10 @@ function initDivs(){
     mSpeed = document.getElementById("monster-speed")
 
     monsterImage = document.getElementById("monster-image")
+    characterImage = document.getElementById("character-image")
 
+    monsterImage.style.display = "none";
+    characterImage.style.display = "none";
     buttonPrompt.style.display = "none"
 }
 
@@ -122,17 +131,17 @@ function increaseStats(h, a, d){
     updateStats()
 }
 function decreaseStats(h, a, d){
-    // alert("DECREASE " - character.health)
-        character.health -= h
-        character.attack -= a
-        character.defense -= d
-    // alert("DECREASE " - character.health)
-        updateStats()
-    }
+// alert("DECREASE " - character.health)
+    character.health -= h
+    character.attack -= a
+    character.defense -= d
+// alert("DECREASE " - character.health)
+    updateStats()
+}
 
 /** Prompt the user for their name and set the characters name */
 function setName(){
-    nameInput = "lucas" //prompt("Hej! Vänligen skriv ditt namn: ")
+    nameInput = prompt("Hej! Vänligen skriv ditt namn: ")
     name = document.getElementById("character-name").innerHTML = nameInput
     character.name = nameInput
 }
@@ -149,15 +158,18 @@ function choseClass(){
         "Sylvanas"
     ]
     let fun = [
-        () => {setStats(4,5,0,5); startGame()},
-        () => {setStats(6,3,1,3); startGame()}, 
-        () => {setStats(5,5,1,4); startGame()}, 
-        () => {setStats(6,3,2,2); startGame()},
-        () => {setStats(4,4,4,3); startGame()},
-        () => {setStats(2,6,5,2); startGame()} 
+        () => {setStats(4,5,0,5); setImage("rogue.jpg"); startGame()},
+        () => {setStats(6,3,1,3); setImage("druid.jpg"); startGame()}, 
+        () => {setStats(5,5,1,4); setImage("paladin.jpg"); startGame()}, 
+        () => {setStats(6,3,2,2); setImage("warrior.jpg"); startGame()},
+        () => {setStats(4,4,4,3); setImage("thrall.jpg"); startGame()},
+        () => {setStats(2,6,5,2); setImage("sylvanas.jpg"); startGame()} 
     ]
     populateButtons(classes, fun)
+}
 
+function setImage(str){
+    characterImage.src = str
 }
 
 function populateButtons(options, fun){
@@ -230,7 +242,6 @@ function attack(){
     else{
         fight()
     }
-
 }
 
 function beat(){
@@ -253,21 +264,20 @@ function fightRandom(){
     fight()
 }
 
-const fly = ["fly", "flyInte"]
 function escape(){
-    const lyckadesFly = Math.floor(Math.random() *fly.length);
-    if(fly[lyckadesFly] == "flyInte"){
-    decreaseStats(4,0,0); 
-}
+    const rng = Math.random();
+    if(rng < 0.5 ){
+        decreaseStats(4,0,0); 
+    }
     if(character.health <= 0){
-    gameOver()
-}
-   else {
-    setInfo("Du lyckades fly utan att ta extra skada") 
+        gameOver()
     }
-
+    else {
+        setInfo("Du lyckades fly utan att ta extra skada") 
+        // TODO: donesn't show
+    }
     fightRandom()
-    }
+}
 
 function fight(){
     setInfo(monster.info)
