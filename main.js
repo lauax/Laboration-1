@@ -199,7 +199,7 @@ function initCharacter(){
 }
 
 function gameOver(){
-    prompt("You lost")
+    alert("You lost thank your playing!")
     onBodyLoad()
 }
 

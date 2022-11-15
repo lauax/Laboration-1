@@ -7,7 +7,8 @@
 #character-image{
     width: 30vw;
     height: 30vw;
-    margin-top : 5vh
+    margin-top : 5vh;
+    margin-left: 9vh;
 }
 
 body{
@@ -21,12 +22,11 @@ body{
 
 #right{
     width : 40vw;
-    margin-right: 6rem;
+   
 }
 
 #left{
     width : 40vw;   
-    margin-left: 6rem; 
 }
 
 #middle{
@@ -36,6 +36,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-right: 6rem;
 }
 
 #button-prompt{
@@ -54,4 +55,7 @@ body{
 
 #character p{
     margin : none;
+}
+#monster{
+    margin-right: 5rem;
 }
