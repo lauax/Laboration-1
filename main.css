@@ -21,10 +21,12 @@ body{
 
 #right{
     width : 40vw;
+    margin-right: 6rem;
 }
 
 #left{
-    width : 40vw;    
+    width : 40vw;   
+    margin-left: 6rem; 
 }
 
 #middle{
