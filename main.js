@@ -21,23 +21,23 @@ const monsters = [
         speed : 3,
         info : "En vild varg går till attack!",
         winText : "Grattis! Du dödade vargen och tillagar den. +2 liv.",
-        win : (m) => {increaseStats(2,0,0); m.health = 5}
+        win : (m) => {increaseStats(1,0,0); m.health = 5}
     },
     {
         name : "spöke",
         health : 3,
-        attack : 7,
+        attack : 4,
         defense : 1,
-        speed : 4,
+        speed : 5,
         info : "Det dök upp ett vilt spöke.",
         winText : "Du har besergrat spöket! Du belönas med +1 attack.",
         win :(m) => {increaseStats(0,1,0); m.health = 3}
     },
     {
         name : "riddare",
-        health : 4,
-        attack : 5,
-        defense : 2,
+        health : 3,
+        attack : 3,
+        defense : 3,
         speed : 3,
         win : (m) => {increaseStats(0,0,1); m.health = 4},
         info : "Det dök upp en vild Riddare ",
@@ -46,7 +46,7 @@ const monsters = [
     {
         name : "troll",
         health : 3,
-        attack : 5,
+        attack : 4,
         defense : 2,
         speed : 3,
         win : (m) => {increaseStats(1,1,0); m.health = 3},
@@ -56,10 +56,10 @@ const monsters = [
     {
         name : "dinosaurie",
         health : 4,
-        attack : 4,
-        defense : 3,
+        attack : 3,
+        defense : 2,
         speed : 4,
-        win : (m) => {increaseStats(0,2,0); m.health = 4},
+        win : (m) => {increaseStats(0,1,0); m.health = 4},
         info : "Det dök upp en vild dinosaurier",
         winText :"Du har besegrat dinosaurieren och belönas med ytterligare stats. +2 attack."
     }
@@ -121,14 +121,28 @@ function updateMonsterStats(){
     mDefense.innerHTML = "Försvar: " + monster.defense
     mSpeed.innerHTML = "Initiativ: " + monster.speed
 }
-
 function increaseStats(h, a, d){
 // alert("INCREASE " + character.health)
+    if(Math.random() < 0.5){
     character.health += h
+    }
+    else{
+        character.health -= h
+    }
     character.attack += a
     character.defense += d
+    
 // alert("INCREASE " + character.health)
-    updateStats()
+if(character.attack >= 10){
+    character.attack = 10;
+    }
+    if(character.defense >= 10){
+        character.defense = 10;
+    }
+    if(character.health >= 10){
+        character.health = 10;
+}
+updateStats()
 }
 function decreaseStats(h, a, d){
 // alert("DECREASE " - character.health)
@@ -157,13 +171,14 @@ function choseClass(){
         "Thrall",
         "Sylvanas"
     ]
+    //Sätter stats för karaktärerna 
     let fun = [
-        () => {setStats(4,5,0,5); setImage("rogue.jpg"); startGame()},
+        () => {setStats(4,5,0,4); setImage("rogue.jpg"); startGame()},
         () => {setStats(6,3,1,3); setImage("druid.jpg"); startGame()}, 
-        () => {setStats(5,5,1,4); setImage("paladin.jpg"); startGame()}, 
-        () => {setStats(6,3,2,2); setImage("warrior.jpg"); startGame()},
-        () => {setStats(4,4,4,3); setImage("thrall.jpg"); startGame()},
-        () => {setStats(2,6,5,2); setImage("sylvanas.jpg"); startGame()} 
+        () => {setStats(5,4,1,3); setImage("paladin.jpg"); startGame()}, 
+        () => {setStats(3,3,5,3); setImage("warrior.jpg"); startGame()},
+        () => {setStats(4,4,2,3); setImage("thrall.jpg"); startGame()},
+        () => {setStats(3,5,3,3); setImage("sylvanas.jpg"); startGame()} 
     ]
     populateButtons(classes, fun)
 }
@@ -274,7 +289,7 @@ function escape(){
     }
     else {
         setInfo("Du lyckades fly utan att ta extra skada") 
-        // TODO: donesn't show
+    
     }
     fightRandom()
 }
@@ -284,7 +299,7 @@ function fight(){
     setMonsterInfo(monster.name)
     updateMonsterStats()
     changeMonsterImage()
-
+   
     updateStats()
     options = [
         "Attckera" , 
