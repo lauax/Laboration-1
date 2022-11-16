@@ -49,7 +49,7 @@ const monsters = [
         attack : 4,
         defense : 2,
         speed : 3,
-        win : (m) => {increaseStats(1,1,0); m.health = 3},
+        win : (m) => {increaseStats(1,0,1); m.health = 3},
         info : "Det dök upp ett vilt troll",
         winText :"Du har besegrat trollet och belönas med ytterligare stats. +1 liv och +1 attack."
     },
