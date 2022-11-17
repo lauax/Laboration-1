@@ -69,6 +69,7 @@ const monsters = [
 function onBodyLoad(){
     initDivs()
     initCharacter()
+    
 }
 
 function startGame(){
@@ -215,7 +216,9 @@ function initCharacter(){
 
 function gameOver(){
     alert("You lost thank your playing!")
+    location.reload()
     onBodyLoad()
+    
 }
 
 function fightMonster(){
@@ -302,7 +305,7 @@ function fight(){
    
     updateStats()
     options = [
-        "Attckera" , 
+        "Attackera" , 
         "Fly (50% -4 liv)"
     ]
     fun = [
