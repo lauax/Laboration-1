@@ -60,7 +60,7 @@ const monsters = [
         defense : 2,
         speed : 4,
         win : (m) => {increaseStats(0,1,0); m.health = 4},
-        info : "Det dök upp en vild dinosaurier",
+        info : "Det dök upp en vild dinosaurier", 
         winText :"Du har besegrat dinosaurieren och belönas med ytterligare stats. +2 attack."
     }
 ]
