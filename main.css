@@ -1,7 +1,8 @@
 #monster-image{
     width: 30vw;
     height: 30vw;
-    margin-top : 5vh
+    margin-top : 5vh;
+    display:none;
 }
 
 #character-image{
@@ -9,10 +10,13 @@
     height: 30vw;
     margin-top : 5vh;
     margin-left: 9vh;
+    display:none;
 }
 
 body{
     display : flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin: 0px;
     height: 100vh;
@@ -20,8 +24,7 @@ body{
     color: white;
 }
 #right{
-    width : 40vw;
-   
+    width : 40vw; 
 }
 
 #left{
