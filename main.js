@@ -4,7 +4,7 @@ cHealth, cAttack, cDefense, cSpeed,
 info, monsterImage, monster, characterImage,
 mHealth, mAttack, mDefense, mSpeed, left, right
  
-/** Object chracter defines what values chracter should consist of */
+/** Object chracter defines what values chracter should consist of. */
 const character = {
     name : null,
     health : 0,
@@ -13,7 +13,7 @@ const character = {
     speed : 0
 }
 
-/** List of monster objects which defines the diffrent monsters in the game*/ 
+/** List of monster objects which defines the diffrent monsters in the game. */ 
 const monsters = [
     {
         name : "Varg",
@@ -70,10 +70,8 @@ const monsters = [
 /** This code runs when the page has finished loading. */
 function onBodyLoad(){
     initDivs()
-    setName()  
-    choseClass()
+    choseName()
 }
-
 
 /** Game begins when class is chosen monsterImage and chrachterImage will display. */
 function startGame(){
@@ -134,7 +132,7 @@ function initCharacter(name, h, a, d, s){
     startGame()
 }
 
-/** Graphically updates the character stats */
+/** Graphically updates the character stats. */
 function updateStats(){
     cHealth.innerHTML = "Liv: " + character.health
     cAttack.innerHTML = "Attack: " + character.attack
@@ -142,7 +140,7 @@ function updateStats(){
     cSpeed.innerHTML = "Initiativ: " + character.speed
 }
 
-/** Graphically updates the monster stats */
+/** Graphically updates the monster stats. */
 function updateMonsterStats(){
     mHealth.innerHTML = "Liv: " + monster.health
     mAttack.innerHTML = "Attack: " + monster.attack
@@ -179,7 +177,7 @@ function increaseStats(h, a, d){
 }
 
 /**
- * Deacreasestats of chrachter 
+ * Deacreases the stats of chrachter.
  * @param {int} h - health
  * @param {int} a - attack
  * @param {int} d - defense 
@@ -191,11 +189,23 @@ function decreaseStats(h, a, d){
     updateStats()
 }
 
-/** Prompt the user for their name and set the characters name */
-function setName(){
-    nameInput = prompt("Hej! Vänligen skriv ditt namn: ")
-    name = document.getElementById("character-name").innerHTML = nameInput
-    character.name = nameInput
+/** Asks the user for their name and set the characters name. */
+function choseName() {
+    var input = document.getElementById("name")
+    let options = [
+        "Bekräfta"
+    ]
+    let fun = [
+        () => {setName(input)},
+    ]
+    populateButtons(options, fun)
+}
+
+/** Sets and shows character name. */
+function setName(input){
+    character.name = input.value
+    document.getElementById("character-name").innerHTML = character.name
+    choseClass()
 }
 
 /** Lets the player chose a class and then sets the stats for the chosen class. */
@@ -211,14 +221,15 @@ function choseClass(){
     ]
     let fun = [
         () => {initCharacter("Rogue",4,5,0,4)},
-        () => {initCharacter("Druid",6,3,1,3)}, 
-        () => {initCharacter("Paladin",5,4,1,3)}, 
-        () => {initCharacter("Warrior",3,3,5,3)},
+        () => {initCharacter("Druid",5,3,1,3)}, 
+        () => {initCharacter("Paladin",4,3,2,3)}, 
+        () => {initCharacter("Warrior",4,3,5,3)},
         () => {initCharacter("Thrall",4,4,2,3)},
-        () => {initCharacter("Sylvanas",3,5,3,3)} 
+        () => {initCharacter("Sylvanas",4,5,1,3)} 
     ]
     populateButtons(classes, fun)
 }
+
 /**
  * Sets the characters image.
  */
@@ -260,7 +271,7 @@ function setInfo(str){
     info.innerHTML = str
 }
 
-/** Alerts the player that the game is over and resets the game.  */
+/** Alerts the player that the game is over and resets the game. */
 function gameOver(){
     alert("You lost thank you for playing!")
     resetGame()
@@ -278,6 +289,7 @@ function resetGame(){
  */
 function monsterAttackCharacter(){
     let atk = monster.attack - character.defense
+    atk = atk <= 0 ? 1 : atk
     character.health -= atk < 0 ? 0 : atk
 }
 
@@ -286,6 +298,7 @@ function monsterAttackCharacter(){
  */
 function characterAttackMonster(){
     let atk = character.attack - monster.defense
+    atk = atk <= 0 ? 1 : atk
     monster.health -= atk < 0 ? 0 : atk
 }
 
@@ -321,7 +334,7 @@ function attackRound(){
 }
 
 /**
- * When monster is beaten continues game and rewards player 
+ * When monster is beaten continues game and rewards player.
  */
 function beat(){
     setInfo(monster.winText)
@@ -336,13 +349,13 @@ function updateMonsterImage(){
     monsterImage.src = monster.name + ".jpg"
 }
 
-/** */
+/** Sets the monster for easier usage in the code.*/
 function setMonster(m){
     monster = m
 }
 
 /**
- * Randomly choses and sets a random monster from the monsters list to fight.
+ * Randomly choses and sets a monster from the monsters list to fight.
  */
 function fightRandom(){
     let i = Math.floor(Math.random() * monsters.length);
@@ -351,26 +364,32 @@ function fightRandom(){
 }
 
 /**
- * Escape from a monster.
- * There is a 50% chance to successfully escape without losing 4 hp.
+ * Tries to escape from a monster.
+ * There is a 50% chance to successfully escape without losing 3 hp.
  */
 function escape(){
     const rng = Math.random();
-    if(rng < 0.5 ){
-        decreaseStats(4,0,0); 
+    if(rng < 0.5){
+        decreaseStats(3,0,0); 
+        if(character.health <= 0){
+            gameOver()
+            return
+        }
+        else {
+            setInfo("Du lyckades fly men förlorade 3 liv.") 
+        }
     }
-    if(character.health <= 0){
-        gameOver()
-        return
-    }
-    else {
-        setInfo("Du lyckades fly utan att ta extra skada") 
+    else{
+        setInfo("Du lyckades fly utan att ta extra skada.") 
     }
     confirm(fightRandom)
 }
 
+/**
+ * Takes a function to be called after showing a message with a confirm button.
+ * @param {function[]} func  - The function to be called when pressing the button.
+ */
 function confirm(func){
-
     options = [
         "Gå vidare"  
     ]
@@ -378,11 +397,10 @@ function confirm(func){
         () => func()
     ]
     populateButtons(options, fun)
-
-
 }
+
 /**
- * Gives options in uppcoming fight beetween chracter and monster
+ * Gives options in uppcoming fight beetween chracter and monster.
  */
 function fight(){
     setInfo(monster.info)
@@ -393,7 +411,7 @@ function fight(){
     updateStats()
     options = [
         "Attackera" , 
-        "Fly (50% -4 liv)"
+        "Fly (50% -3 liv)"
     ]
     fun = [
         () => attackRound(),

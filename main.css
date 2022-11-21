@@ -27,6 +27,11 @@ body{
     width : 40vw; 
 }
 
+input{
+    margin:25px;
+    height:40px;
+}
+
 #left{
     width : 40vw;   
 }
